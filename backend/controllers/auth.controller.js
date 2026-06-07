@@ -29,15 +29,14 @@ export const singup = async (req, res) => {
     });
 
     const token = generateToken(user._id);
+    const cookieOptions = {
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    };
 
-res.cookie("token", token, {
-  httpOnly: true,
-  sameSite: "strict",
-  secure: false,
-  maxAge: 7 * 24 * 60 * 60 * 1000,
-});
-
-
+    res.cookie("token", token, cookieOptions);
     return res.status(201).json(user);
   } catch (error) {
     console.log("thi is signup error", error);
@@ -59,17 +58,15 @@ export const login = async (req, res) => {
     }
 
     const user = await User.findOne({ email: email }).select("-password");
-
     const token = generateToken(user._id);
+    const cookieOptions = {
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    };
 
- res.cookie("token", token, {
-  httpOnly: true,
-  sameSite: "strict",
-  secure: false,
-  maxAge: 7 * 24 * 60 * 60 * 1000,
-});
-
-
+    res.cookie("token", token, cookieOptions);
     return res.status(201).json(user);
   } catch (error) {
     console.log("thi is Login error", error);

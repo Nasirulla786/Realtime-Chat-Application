@@ -6,17 +6,18 @@ export const getCurrentUser = async (req, res) => {
     const user = req.userId;
     // console.log("this is user",user);
     if (!user) {
-      return res.json({ message: " user is not found for token" });
+      return res.status(401).json({ message: "user is not found for token" });
     }
 
     const currentrUser = await User.findById(user);
     if (!currentrUser) {
-      return res.json({ message: "current user is not found" });
+      return res.status(404).json({ message: "current user is not found" });
     }
 
     return res.status(200).json(currentrUser);
   } catch (error) {
     console.log("this is getCurrentUser error", error);
+    return res.status(500).json({ message: "get current user error" });
   }
 };
 
@@ -45,8 +46,9 @@ export const editProfie = async(req,res)=>{
 
 
 
-  } catch (error) {console.log("this is edit profile error",error);
-
+  } catch (error) {
+    console.log("this is edit profile error", error);
+    return res.status(500).json({ message: "edit profile error" });
   }
 }
 
@@ -57,10 +59,10 @@ export const otherUsers= async(req,res)=>{
 
     const otherUsers = await User.find({_id:{$ne:req.userId}}).select("-password");
 
-    return res.status(201).json(otherUsers);
+    return res.status(200).json(otherUsers);
 
   } catch (error) {
-    console.log("this is other users error",error)
-
+    console.log("this is other users error", error);
+    return res.status(500).json({ message: "other users error" });
   }
 }

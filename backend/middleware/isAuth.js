@@ -5,12 +5,12 @@ const isAuth = async (req, res, next) => {
     const token = req.cookies.token;
     // console.log("this is tokeen",token)
     if (!token) {
-      return res.status(500).json({ message: "token is not found" });
+      return res.status(401).json({ message: "token is not found" });
     }
 
     const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
     if (!verifyToken) {
-      return res.status(500).json({ message: "verifyToken is not found" });
+      return res.status(401).json({ message: "invalid token" });
     }
 
     // console.log("this is verifytoken",verifyToken)
