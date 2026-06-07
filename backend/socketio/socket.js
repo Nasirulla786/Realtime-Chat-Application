@@ -8,7 +8,8 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    //add frontend URl http://localhost:5173
+    origin: "https://realtime-chat-application-2-9uto.onrender.com",
   },
 });
 

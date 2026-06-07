@@ -27,7 +27,9 @@ function App() {
   useEffect(() => {
     if (!userData) return;
 
-    const newSocket = io("http://localhost:8000", {
+
+    //add localhost url http://localhot:8000 for locally run
+    const newSocket = io("https://realtime-chat-application-1-6pfu.onrender.com", {
       query: { userId: userData?._id },
     });
 
