@@ -29,6 +29,9 @@ function App() {
 
 
     //add localhost url http://localhot:8000 for locally run
+    // const newSocket = io(" http://localhot:8000", {
+    //   query: { userId: userData?._id },
+    // });
     const newSocket = io("https://realtime-chat-application-1-6pfu.onrender.com", {
       query: { userId: userData?._id },
     });
