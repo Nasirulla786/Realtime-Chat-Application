@@ -13,7 +13,7 @@ import { setonlineUsers } from "./redux/userSlice";
 import { useEffect, useState } from "react";
 import SocketContext from "./SocketContext";
 
-export const serverURL = "http://localhost:8000";
+export const serverURL = "http://localhost:8000" || "";
 
 function App() {
   useGetCurrentUser();
